@@ -95,7 +95,7 @@ export const Body = () => {
           {state.uploadedfilesUrls?.map((file, index) => (
             <div
               key={index}
-              className={`sm:flex justify-between p-5 gap-5 bg-white/[0.2] h-auto w-auto ${
+              className={`sm:flex justify-between flex-wrap p-5 gap-5 bg-white/[0.2] h-auto w-auto ${
                 index === 0 ? "rounded-t-lg" : ""
               } ${
                 index === state.uploadedfilesUrls?.length ? "rounded-t-lg" : ""
@@ -115,7 +115,7 @@ export const Body = () => {
                 } cursor-pointer`}
                 onClick={() => handleCopy(file.secure_url)}
               >
-                Copied
+                Copy
               </div>
             </div>
           ))}
