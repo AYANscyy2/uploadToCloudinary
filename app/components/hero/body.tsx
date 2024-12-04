@@ -95,7 +95,7 @@ export const Body = () => {
           {state.uploadedfilesUrls?.map((file, index) => (
             <div
               key={index}
-              className={`sm:flex justify-between flex-wrap p-5 gap-5 bg-white/[0.2] h-auto w-auto ${
+              className={`sm:flex justify-between p-5 gap-5 bg-white/[0.2] h-auto w-auto ${
                 index === 0 ? "rounded-t-lg" : ""
               } ${
                 index === state.uploadedfilesUrls?.length ? "rounded-t-lg" : ""
@@ -104,7 +104,7 @@ export const Body = () => {
               <div className="font-normal text-[#14213d]">
                 {file.display_name}
               </div>
-              <div className="font-normal text-wrap w-auto h-auto text-white/50">
+              <div className="font-normal flex flex-wrap break-words h-auto text-white/50">
                 {file.secure_url}
               </div>
               <div
