@@ -29,18 +29,22 @@ export const Body = () => {
     navigator.clipboard.writeText(url).then(() => {
       setState((prev) => ({
         ...prev,
-        copyclickedcount:
-          prev.copyclickedcount == 0
-            ? prev.copyclickedcount
-              ? prev.copyclickedcount + 1
-              : 1
-            : 0
+        copyclickedcount: prev.copyclickedcount == 0 ? 1 : 0,
+        uploadedfilesUrls: prev.uploadedfilesUrls?.map((file) => {
+          if (file.secure_url === url) {
+            return {
+              ...file,
+              isCopied: true
+            };
+          }
+          return file;
+        })
       }));
     });
   };
 
   return (
-    <div className="bg-[#2d3142] h-auto min-h-screen w-full flex flex-col gap-20 justify-center items-center">
+    <div className="bg-[#2d3142] min-h-screen w-full flex flex-col gap-12 items-center py-10 px-4">
       <CldUploadWidget
         uploadPreset="uploadToCloudinary"
         onSuccess={(results) => {
@@ -78,44 +82,40 @@ export const Body = () => {
           }
         }}
       >
-        {({ open }) => {
-          return (
-            <button
-              className="text-[#4f5d75] bg-[#bfc0c0] hover:bg-[#ffffff] text-[25px] focus:outline-none focus:ring-4 focus:ring-gray-300 font-normal rounded-lg px-7 py-3.5 me-3"
-              onClick={() => open()}
-            >
-              {state.uploadCount === 0 ? "Upload File" : "Upload More"}
-            </button>
-          );
-        }}
+        {({ open }) => (
+          <button
+            className="text-[#4f5d75] bg-[#bfc0c0] hover:bg-[#ffffff] text-lg sm:text-xl md:text-2xl focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-transform transform hover:scale-105"
+            onClick={() => open()}
+          >
+            {state.uploadCount === 0 ? "Upload File" : "Upload More"}
+          </button>
+        )}
       </CldUploadWidget>
 
       {state.isUploaded && (
-        <div className="text-[32px] h-auto p-5 w-[95vw] flex flex-col bg-white/[0.1]">
+        <div className="w-full max-w-4xl bg-white/[0.1] rounded-lg p-5">
           {state.uploadedfilesUrls?.map((file, index) => (
             <div
               key={index}
-              className={`sm:flex justify-between p-5 gap-5 bg-white/[0.2] h-auto w-auto ${
+              className={`flex flex-wrap sm:flex-nowrap items-center justify-between gap-5 p-4 border-b ${
                 index === 0 ? "rounded-t-lg" : ""
-              } ${
-                index === state.uploadedfilesUrls?.length ? "rounded-t-lg" : ""
-              }  text-[24px] `}
+              } text-white`}
             >
-              <div className="font-normal text-[#14213d]">
+              <div className="text-lg sm:text-xl md:text-2xl font-semibold text-[#14213d] ">
                 {file.display_name}
               </div>
-              <div className="font-normal flex flex-wrap break-words h-auto text-white/50">
+              <div className="text-sm sm:text-base text-white/70 break-words truncate">
                 {file.secure_url}
               </div>
               <div
-                className={`font-normal ${
-                  state.copyclickedcount === 0
-                    ? "text-[#004b23]"
-                    : "text-[#370617]"
-                } cursor-pointer`}
+                className={`text-white  focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800  dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer ${
+                  file.isCopied && state.copyclickedcount === 1 ? "" : ""
+                }`}
                 onClick={() => handleCopy(file.secure_url)}
               >
-                Copy
+                {file.isCopied && state.copyclickedcount === 1
+                  ? "Copied"
+                  : "Copy"}
               </div>
             </div>
           ))}
