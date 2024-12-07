@@ -19,7 +19,7 @@ const initialState: IMainProps = {
   isUploaded: false,
   uploadedfiles: [],
   uploadCount: 0,
-  copyclickedcount: 0,
+  copyclickedcount: 0
 };
 
 export const Body = () => {
@@ -33,11 +33,11 @@ export const Body = () => {
           console.log("file.secure_url", file.secure_url);
           return {
             ...file,
-            isCopied: !file.isCopied,
+            isCopied: !file.isCopied
           };
         }
         return file;
-      }),
+      })
     }));
   };
 
@@ -56,7 +56,7 @@ export const Body = () => {
     <div
       style={{
         backgroundImage: "linear-gradient(120deg ,#2d3142 ,black,black,black )",
-        backgroundSize: "cover",
+        backgroundSize: "cover"
       }}
       className="min-h-screen bg-current w-full flex flex-col gap-12 items-center py-10 px-4"
     >
@@ -78,17 +78,17 @@ export const Body = () => {
                     {
                       secure_url: resultsInfo.secure_url,
                       display_name: resultsInfo.display_name ?? "",
-                      isCopied: false,
-                    },
+                      isCopied: false
+                    }
                   ]
                 : [
                     {
                       secure_url: resultsInfo.secure_url,
                       display_name: resultsInfo.display_name ?? "",
-                      isCopied: false,
-                    },
+                      isCopied: false
+                    }
                   ],
-              uploadCount: prev.uploadCount ? prev.uploadCount + 1 : 1,
+              uploadCount: prev.uploadCount ? prev.uploadCount + 1 : 1
             }));
           } else {
             console.error(
@@ -100,7 +100,7 @@ export const Body = () => {
       >
         {({ open }) => (
           <button
-            className="text-[#4f5d75] bg-[#bfc0c0] hover:bg-[#ffffff] text-lg sm:text-xl md:text-2xl focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-transform transform hover:scale-105"
+            className="text-[#14223f] bg-white hover:bg-[#bfc0c0] text-lg sm:text-xl md:text-2xl focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg px-6 py-3 shadow-md hover:shadow-lg transition-transform transform hover:scale-105"
             onClick={() => open()}
           >
             {state.uploadCount === 0 ? "Upload File" : "Upload More"}
@@ -120,14 +120,14 @@ export const Body = () => {
                     index === 0 ? "rounded-t-lg" : ""
                   } text-white`}
                 >
-                  <div className="text-lg sm:text-xl md:text-2xl max-md:truncate  font-semibold text-[#14213d] ">
+                  <div className="text-lg sm:text-lg md:text-xl max-md:truncate  font-semibold text-[#4970c5] ">
                     {file.display_name}
                   </div>
-                  <div className="text-sm sm:text-base text-white/70 break-words truncate">
+                  <div className="text-base sm:text-lg text-white/70 break-words truncate">
                     {file.secure_url}
                   </div>
                   <div
-                    className={`text-white  focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800  dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer ${
+                    className={`text-white  focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-[#274482] dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer ${
                       file.isCopied && state.copyclickedcount === 1 ? "" : ""
                     }`}
                     onClick={() => handleCopy(file.secure_url)}
