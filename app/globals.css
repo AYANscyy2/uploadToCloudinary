@@ -5,6 +5,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
 }
 
 @media (prefers-color-scheme: dark) {

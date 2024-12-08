@@ -13,17 +13,23 @@ interface IMainProps {
   uploadCount?: number;
   copyclickedcount?: number;
   fileName?: string;
+  uploadPreset?: string;
 }
 
 const initialState: IMainProps = {
   isUploaded: false,
   uploadedfiles: [],
   uploadCount: 0,
-  copyclickedcount: 0
+  copyclickedcount: 0,
+  uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
 };
 
 export const Body = () => {
   const [state, setState] = useState(initialState);
+  console.log(
+    "Upload Preset:",
+    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+  );
 
   const UpdateIsCopiedState = (url: string) => {
     setState((prev) => ({
@@ -61,7 +67,7 @@ export const Body = () => {
       className="min-h-screen bg-current w-full flex flex-col gap-12 items-center py-10 px-4"
     >
       <CldUploadWidget
-        uploadPreset="uploadToCloudinary"
+        uploadPreset={state.uploadPreset}
         onSuccess={(results) => {
           const resultsInfo = results.info;
           if (
