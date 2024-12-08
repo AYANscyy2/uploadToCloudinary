@@ -107,5 +107,3 @@ yarn build
 - Check that environment variables are correctly set
 - Verify Cloudinary credentials and upload preset
 
-## License
-[Your License - e.g., MIT]
